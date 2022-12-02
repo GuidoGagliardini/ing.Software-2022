@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const service = require('./../services/userServces')
+const service = require('./../services/userServces');
 
 const getUser = (req,res,next)=>{
   try {
@@ -17,14 +17,10 @@ const getUser = (req,res,next)=>{
 }
 const createUser = (req,res,next)=>{
   try {
-    const{user,password}=req.body
-    const result = service.createUsers(user,password);
-    console.log(result)
-    result ? res.json({message:`Registro Correcto usuario ${user}`}) : 
-    res.send(" FORMATO ===> user: 'x' password: 'x");
+    const{name,email}=req.body
+    const result = service.createUsers(name,email);
   } catch (error) {
-    console.log(error);
-    res.json({message:"Error al crear usuario"})
+    res.json({error: "Errosino"})
     // res.sendStatus(403);
     //el servidor entiende la solicutd, pero se niega a autroizarla.
   }

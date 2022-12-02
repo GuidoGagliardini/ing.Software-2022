@@ -1,6 +1,10 @@
+
+//Services vendria a ser Controller.
 var express = require('express');
 var axios  = require ('axios');
 var router = express.Router();
+const UsersModel =  require('../models/usersModel');
+
 
 
 const getUser =(user,password)=>{
@@ -12,14 +16,12 @@ const getUser =(user,password)=>{
         return true;
     }else return false;
 }
-const createUsers =(user,password)=>{
+const createUsers = async (name,email)=>{
    //simulacion de creacion de usuario
-   const userJson = {user,password};
-   if(user && password){
-    userJson.user=user;
-    userJson.password;
-    return userJson;
-   }else return false;
+   const userJson = {name : name ,email : email};
+   console.log(userJson)
+   const post = await UsersModel.create(userJson);
+   console.log('POSTTTTTT',post);
  
 }
 
