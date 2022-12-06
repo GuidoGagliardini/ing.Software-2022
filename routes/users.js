@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 const service = require('./../services/userServces');
 
-const getUser = (req,res,next)=>{
+const getUser = async (req,res,next)=>{
   try {
-    const{user,password}=req.body
-    const result = service.getUser(user,password);
-    result ? res.json({message:`Ingreso ok de usuario ${user}`}) : 
-    res.send("Ingreso Invalido, pruebe con user ingenieriasoftware | password 123456");
+    const{email}=req.body
+    const result = await service.getUser(email);
+    console.log("🚀 ~ file: users.js:9 ~ getUser ~ result", result)
+    res.json({logged:` True ${result}`})
+   
   } catch (error) {
     console.log(error);
     res.json({message:"Error en user o password"})
@@ -15,14 +16,14 @@ const getUser = (req,res,next)=>{
     //el servidor entiende la solicutd, pero se niega a autroizarla.
   }
 }
-const createUser = (req,res,next)=>{
+const createUser = async (req,res,next)=>{
   try {
     const{name,email}=req.body
-    const result = service.createUsers(name,email);
+    const result = await service.createUsers(name,email);
+    console.log(result, "REsutl");
+    res.json({user: result})
   } catch (error) {
-    res.json({error: "Errosino"})
-    // res.sendStatus(403);
-    //el servidor entiende la solicutd, pero se niega a autroizarla.
+    res.json({error: "error"})
   }
 }
 router.post('/login',getUser);

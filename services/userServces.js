@@ -7,22 +7,23 @@ const UsersModel =  require('../models/usersModel');
 
 
 
-const getUser =(user,password)=>{
-    //este paso simularia a una peticion a la base de datos
-    // y una validacion de si el usuario existe en nuestra base de datos
-    const userMock = 'ingenieriasoftware';
-    const passwordMock = '123456';
-    if (userMock===user && passwordMock===password){
-        return true;
-    }else return false;
+const getUser =async (email)=>{
+    const dataUser =  await UsersModel.findAll({
+        where: {email}
+    })
+
+    console.log(dataUser)
 }
 const createUsers = async (name,email)=>{
    //simulacion de creacion de usuario
-   const userJson = {name : name ,email : email};
-   console.log(userJson)
-   const post = await UsersModel.create(userJson);
-   console.log('POSTTTTTT',post);
- 
+   try {
+    const userJson = {name : name ,email : email};
+    const post = await UsersModel.create(userJson);
+    return post;
+   } catch (error) {
+     console.log(error);
+     return error;
+   }
 }
 
 module.exports={getUser,createUsers};
