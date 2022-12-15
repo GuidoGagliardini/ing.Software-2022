@@ -8,14 +8,26 @@ const UsersModel =  require('../models/usersModel');
 
 
 const getUser =async (email)=>{
-    const dataUser =  await UsersModel.findAll({
+    const dataUser =  await UsersModel.findOne({
         where: {email}
     })
 
     console.log(dataUser)
 }
+const getAllUsers =  async ()=>{
+    const dataUser = await UsersModel.findAll();
+    // return {...dataUser}
+    console.log(dataUser)
+    return dataUser
+}
+const getUserById =  async (id)=>{
+    const user = await UsersModel.findAll({
+        where: {id}
+    });
+    console.log(user)
+    return user;
+}
 const createUsers = async (name,email)=>{
-   //simulacion de creacion de usuario
    try {
     const userJson = {name : name ,email : email};
     const post = await UsersModel.create(userJson);
@@ -25,5 +37,33 @@ const createUsers = async (name,email)=>{
      return error;
    }
 }
+const deleteUser = async(id)=>{
+    try {
+        const deleteData = await UsersModel.destroy({
+            where:{id}
+        })
+        console.log(deleteData)
+        return deleteData;
+    } catch (error) {
+        return error;
+    }
+}
 
-module.exports={getUser,createUsers};
+const updateUser = async (id,updateData)=>{
+    try {
+        console.log(updateData)
+        const updateAction = await UsersModel.upsert(
+                {
+                    id: id,
+                    name: updateData.name,
+                    email: updateData.email
+                }
+            )
+        return updateAction;
+    } catch (error) {
+        return error
+        
+    }
+}
+
+module.exports={getUser,createUsers,getAllUsers,deleteUser,updateUser,getUserById};
