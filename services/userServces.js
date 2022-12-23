@@ -66,11 +66,14 @@ const updateUser = async (id,updateData)=>{
 }
 const userWhitPoke = async (id)=>{
     try {
-        const usersWhitPoke = await PokeModel.findAll(associations({
-            include: UsersModel
-        })).toJSon();
-    } catch (error) {
+        const usersWhitPoke = await UsersModel.findAll({
+            include: PokeModel
+        });
+        console.log("🚀 ~ file: userServces.js:70 ~ userWhitPoke ~ usersWhitPoke", usersWhitPoke)
         
+        return usersWhitPoke;
+    } catch (error) {
+        return error;
     }
 }
 

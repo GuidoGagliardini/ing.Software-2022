@@ -73,6 +73,8 @@ const updateUsers = async(req,res,next)=>{
 const getUserWhitPoke = async (req,res,next)=>{
   try {
     const userPoke = await service.userWhitPoke();
+    console.log("🚀 ~ file: users.js:76 ~ getUserWhitPoke ~ userPoke", userPoke)
+    
     res.json({userPoke: userPoke})
   } catch (error) {
     console.log(error)
