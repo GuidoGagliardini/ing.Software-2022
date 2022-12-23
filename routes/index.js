@@ -56,8 +56,17 @@ const updatePoke =  async (req,res,next)=>{
     res.json({message:"RECUERDE PONER COMO NOMBRE DE CAMPO 'DATOS'"})
   }
 }
+const getPokeBd = async (req,res,next)=>{
+  try {
+    const allPoke = await service.getPokesSave();
+    res.json({pokes: allPoke})
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 router.get('/', getPoke);
+router.get('/pokes', getPokeBd);
 router.get('/:id',getPokebyId);
 router.delete('/:id',deletePoke);
 router.put('/:id', updatePoke);

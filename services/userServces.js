@@ -66,11 +66,9 @@ const updateUser = async (id,updateData)=>{
 }
 const userWhitPoke = async (id)=>{
     try {
-        const usersWhitPoke = await PokeModel.findByPk(id,{
-            include:[
-               { model: PokeModel, required:false}
-            ]
-        })
+        const usersWhitPoke = await PokeModel.findAll(associations({
+            include: UsersModel
+        })).toJSon();
     } catch (error) {
         
     }

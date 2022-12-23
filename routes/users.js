@@ -20,7 +20,6 @@ const createUser = async (req,res,next)=>{
   try {
     const{name,email}=req.body
     const result = await service.createUsers(name,email);
-    console.log(result, "REsutl");
     res.json({user: result})
   } catch (error) {
     res.json({error: "error"})
@@ -49,8 +48,7 @@ const deleteUSer = async(req,res,next)=>{
     const {id} = req.params;
     const dataDelete = await service.deleteUser(id);
     dataDelete == 1 ? 
-    res.json({message:"Eliminado correctamente",
-              user: dataDelete})
+    res.json({message:"Eliminado correctamente"})
     :
     res.json({message:`NO se pudo borrar el usuario, el id = ${id} no existe en nuestra base de datos`})
 
@@ -72,9 +70,18 @@ const updateUsers = async(req,res,next)=>{
     res.json({error:error})
   }
 }
+const getUserWhitPoke = async (req,res,next)=>{
+  try {
+    const userPoke = await service.userWhitPoke();
+    res.json({userPoke: userPoke})
+  } catch (error) {
+    console.log(error)
+  }
+}
 router.post('/login',login);
 router.post('/create', createUser);
 router.get('/getAll', getAllUsers);
+router.get('/getUserPoke', getUserWhitPoke);
 router.get('/getUser/:id',getUsersById);
 router.post('/delete/:id',deleteUSer);
 router.put('/update/:id',updateUsers);
