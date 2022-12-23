@@ -3,8 +3,8 @@ const {sequelize} = require('../utils/bd');
 
 class PokeModel extends Model{}
 
-UsersModel.init({
-    id:{
+PokeModel.init({
+    id_poke:{
         type:DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
